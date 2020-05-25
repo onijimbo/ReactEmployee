@@ -1,25 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Main from "./pages/Main";
+import Filtered from "./pages/Filtered";
+import Sorted from "./pages/Sorted";
+import Header from "./components/Header";
+import Nav from "./components/Nav";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import axios from 'axios'
+import "./App.css";
+import './components/Nav.css'
 
 function App() {
+  const [ newRes, setRes ] = useState([]);
+  const [ filterRes, setFilter ] = useState([]);
+  const [ sortRes, setSort ] = useState([]);
+
+
+  useEffect(() => {
+   
+    axios.get(`https://randomuser.me/api/?results=15&nat=us,ca,fr`)
+        .then((response)=>{
+          // console.log(response.data.results)
+          setRes(response.data.results)
+          const usEmploy = response.data.results.filter(employ => employ.nat === 'US')
+          // console.log(usEmploy)
+          setFilter(usEmploy)
+          const seniorEmploy = response.data.results.sort((a,b)=> b.registered.age-a.registered.age)
+          console.log(seniorEmploy)
+          setSort(seniorEmploy)
+        })
+        
+       
+          
+     
+      }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Nav />
+        <Switch>
+          <Route exact path={["/", "/Main"]}>
+            <Main res={newRes} />
+          </Route>
+          <Route path="/Filtered">
+            <Filtered res={filterRes} />
+          </Route>
+          <Route path="/Sorted">
+            <Sorted res={sortRes} />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
