@@ -7,12 +7,12 @@ function Sorted(props){
         <div className="row">
           <div className="card">
             <div className="card-body">
-              <ul>
+            <ul>
                 {props.res.map((employee) => (
                   <li key={employee.login.uuid}>
                   <span className="target">Name:</span> {employee.name.first}{" "}
                   {employee.name.last} <span className="target">Email:</span>{" "} 
-                  {employee.email} <span className="target">Years:</span> {employee.registered.age}
+                  {employee.email} <span className="target">Years:</span> {employee.registered.age} <span className="target">Nation:</span> {employee.nat}
                 </li>
                 ))}
               </ul>

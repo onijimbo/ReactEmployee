@@ -19,13 +19,15 @@ function App() {
    
     axios.get(`https://randomuser.me/api/?results=15&nat=us,ca,fr`)
         .then((response)=>{
-          // console.log(response.data.results)
+          console.log(response.data.results)
           setRes(response.data.results)
+          const e = Array.from(response.data.results)
           const usEmploy = response.data.results.filter(employ => employ.nat === 'US')
           // console.log(usEmploy)
           setFilter(usEmploy)
-          const seniorEmploy = response.data.results.sort((a,b)=> b.registered.age-a.registered.age)
-          console.log(seniorEmploy)
+          const seniorEmploy = e.sort((a,b)=> b.registered.age-a.registered.age)
+          
+          console.log(e)
           setSort(seniorEmploy)
         })
         
