@@ -42,7 +42,7 @@ function App() {
         <Header />
         <Nav />
         <Switch>
-          <Route exact path={["/", "/Main",  'onijimbo.github.io/ReactEmployee']}>
+          <Route exact path={["/", "/Main",  'onijimbo.github.io/ReactEmployee/']}>
             <Main res={newRes} />
           </Route>
           <Route path="/Filtered">
